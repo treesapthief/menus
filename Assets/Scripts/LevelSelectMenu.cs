@@ -22,13 +22,13 @@ public class LevelSelectMenu : MonoBehaviour
     public void LoadLevels()
     {
         // BUG: This is not deleting the correct items
-        var children = ViewPortContent.GetComponentsInChildren<Transform>();
+        var children = GameObject.FindGameObjectsWithTag("LevelSelectButton");
 
         // Clear out children in content
-        //foreach (var childObject in children)
-        //{
-        //    Destroy(childObject.gameObject);
-        //}
+        foreach (var childObject in children)
+        {
+            Destroy(childObject.gameObject);
+        }
 
         for (var i = 0; i < NumberOfLevels; i++)
         {
