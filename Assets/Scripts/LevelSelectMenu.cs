@@ -1,6 +1,7 @@
 ﻿using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelSelectMenu : MonoBehaviour
 {
@@ -32,11 +33,18 @@ public class LevelSelectMenu : MonoBehaviour
 
         for (var i = 0; i < NumberOfLevels; i++)
         {
-            var button = Instantiate(LevelButton, ViewPortContent.transform);
-            var text = button.GetComponentInChildren<TMP_Text>();
+            var buttonPrefab = Instantiate(LevelButton, ViewPortContent.transform);
+            var button = buttonPrefab.GetComponent<Button>();
+            var level = i + 1;
+            button.onClick.AddListener(delegate { SelectLevel(level); });
+            var text = buttonPrefab.GetComponentInChildren<TMP_Text>();
             text.text = $"Level {i + 1}";
         }
+    }
 
-        // TODO: Expand the content width based on # of levels
+    private void SelectLevel(int level)
+    {
+        LevelManager.Instance.SetLevel(level);
+        SceneManager.LoadScene("GameScene");
     }
 }
