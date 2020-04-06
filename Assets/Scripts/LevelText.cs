@@ -7,14 +7,22 @@ public class LevelText : MonoBehaviour
     void Start()
     {
         Debug.Log("LevelText.Start");
-        var level = LevelManager.Instance.GetLevel();
-        OnLevelChanged(level);
+        var levelManager = LevelManager.Instance;
+        if (levelManager != null)
+        {
+            var level = levelManager.GetLevel();
+            OnLevelChanged(level);
+        }
     }
 
     void Awake()
     {
         Debug.Log("LevelText.Awake");
-        LevelManager.Instance.OnLevelChanged += OnLevelChanged;
+        var levelManager = LevelManager.Instance;
+        if (levelManager != null)
+        {
+            levelManager.OnLevelChanged += OnLevelChanged;
+        }
     }
 
     private void OnLevelChanged(int level)
